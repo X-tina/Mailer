@@ -12,16 +12,15 @@ module InputRequest
   def check_path_to_list(path_to_file)
     begin
       doc = File.open("#{convert_string_to_path(path_to_file)}", 'r') { |file| file.read }.split("\n")
-      if doc
-      	doc
-      end
+      doc if doc
     rescue
       flash.now[:alert] = "No such file or directory #{convert_string_to_path(path_to_file)}"
+      flash.now[:notice] = "Example: /home/username/path_to_file.type."
     end
   end
 
   def convert_string_to_path(path)
-    path.split("_").join("/").insert(0, "/")
+    path.split("_").join("/")
   end
 
   def head?
