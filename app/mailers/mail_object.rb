@@ -1,15 +1,14 @@
 class MailObject < ActionMailer::Base
-  include InputRequest
 
   default from: "username.idap@gmail.com"
 
-  def create_mails(mails, head, body, attachs)
-    @mails, @head, @body, @attachments = mails, head, body, attachs
+  def create_mails(mail, head, body, attachs)
+    @mail, @head, @body, @attachments = mail, head, body, attachs
 
     attach_name = @attachments.split("/").last
     attachments["#{attach_name}"] = File.read("#{@attachments}")
 
-    mail(to: @mails, subject: @head)
+    mail(to: @mail, subject: @head)
   end
 
   def mail_list(mails)
